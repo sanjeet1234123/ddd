@@ -16,7 +16,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('aws_service_probe2.log'),
+        logging.FileHandler('aws_service_probe3.log'),
         logging.StreamHandler()
     ]
 )
@@ -25,9 +25,9 @@ logger = logging.getLogger(__name__)
 # Constants
 ACTIVE_REGIONS = ["us-west-2", "us-east-2", "us-east-1", "us-west-1"]
 INPUT_FILE = "services.xlsx"
-OUTPUT_FILE = "aws-services-audit-721526942678.xlsx"
-MAX_ACCOUNT_THREADS = 10  # Limit concurrent account threads
-MAX_SERVICE_THREADS = 20  # Limit concurrent service threads per account
+OUTPUT_FILE = "aws-services-audit2.xlsx"
+MAX_ACCOUNT_THREADS = 5  # Limit concurrent account threads
+MAX_SERVICE_THREADS = 10  # Limit concurrent service threads per account
 
 # Lock for synchronizing access to file I/O
 file_lock = threading.Lock()
@@ -643,8 +643,8 @@ def check_service(client, service_name):
         elif service_name == 'cloud-financial-management':
             response = client.describe_budgets()
             return len(response.get('Budgets', [])) > 0
-        elif service_name == 'cloudhsm':
-            response = client.list_hsms()
+        # elif service_name == 'cloudhsm':
+        #     response = client.list_hsms()
             return len(response.get('Hsms', [])) > 0
         elif service_name == 'cloudsearch':
             response = client.describe_domains()
@@ -820,7 +820,59 @@ def check_service(client, service_name):
         elif service_name == 'workspaces-thin-client':
             response = client.describe_thin_clients()
             return len(response.get('ThinClients', [])) > 0
-        
+        elif service_name == 'deadline':
+            response = client.list_farms()
+            farms = response.get('farms', [])
+            return len(farms) > 0
+        elif service_name == 'deepcomposer':
+            response = client.list_compositions()
+            return len(response.get('compositions', [])) > 0
+        elif service_name == 'pinpoint-sms-voice-v2':
+            response = client.list_configuration_sets()
+            return len(response.get('ConfigurationSets', [])) > 0
+        elif service_name == 'entityresolution':
+            response = client.list_matching_workflows()
+            return len(response.get('matchingWorkflows', [])) > 0
+        elif service_name == 'fms':
+            response = client.list_policies()
+            return len(response.get('PolicyList', [])) > 0
+        elif service_name == 'health':
+            response = client.describe_events()
+            return len(response.get('events', [])) > 0
+        elif service_name == 'medical-imaging':
+            response = client.list_datastores()
+            return len(response.get('datastoreSummaries', [])) > 0
+        elif service_name == 'healthlake':
+            response = client.list_fhir_datastores()
+            return len(response.get('DatastorePropertiesList', [])) > 0
+        elif service_name == 'omics':
+            response = client.list_runs()
+            return len(response.get('runs', [])) > 0
+        elif service_name == 'iotfleetwise':
+            response = client.list_vehicles()
+            return len(response.get('vehicles', [])) > 0
+        elif service_name == 'lakeformation':
+            response = client.list_lf_tags()
+            return len(response.get('LFTags', [])) > 0
+        elif service_name == 'license-manager':
+            response = client.list_licenses()
+            return len(response.get('Licenses', [])) > 0
+        elif service_name == 'm2':
+            response = client.list_applications()
+            return len(response.get('applications', [])) > 0
+        elif service_name == 'marketplace-catalog':
+            response = client.list_entities(EntityType='AmiProduct')
+            return len(response.get('EntitySummaryList', [])) > 0
+        elif service_name == 'mgh':
+            response = client.list_migration_tasks()
+            return len(response.get('MigrationTaskSummaryList', [])) > 0
+        elif service_name == 'pinpoint-sms-voice-v2':
+            response = client.list_configuration_sets()
+            return len(response.get('ConfigurationSets', [])) > 0
+        elif service_name == 'entityresolution':
+            response = client.list_matching_workflows()
+            return len(response.get('matchingWorkflows', [])) > 0
+  
         return False
     except ClientError as e:
         logger.warning(f"ClientError checking {service_name}: {e}")
@@ -998,7 +1050,7 @@ service_map = {
     'Blockchain': 'blockchain',
     'Business Applications': 'business-applications',
     'Cloud Financial Management': 'cloud-financial-management',
-    'CloudHSM': 'cloudhsm',
+    # 'CloudHSM': 'cloudhsm',
     'CloudSearch': 'cloudsearch',
     'CloudShell': 'cloudshell',
     'CodeDeploy': 'codedeploy',
@@ -1058,6 +1110,23 @@ service_map = {
     'WorkSpaces': 'workspaces',
     'WorkSpaces Secure Browser': 'workspaces-secure-browser',
     'WorkSpaces Thin Client': 'workspaces-thin-client',
+    'AWS Deadline Cloud': 'deadline',
+    'AWS DeepComposer': 'deepcomposer',
+    'AWS End User Messaging': 'pinpoint-sms-voice-v2',
+    'AWS Entity Resolution': 'entityresolution',
+    'AWS Firewall Manager': 'fms',
+    'AWS Health Dashboard': 'health',
+    'AWS HealthImaging': 'medical-imaging',
+    'AWS HealthLake': 'healthlake',
+    'AWS HealthOmics': 'omics',
+    'AWS IoT FleetWise': 'iotfleetwise',
+    'AWS Lake Formation': 'lakeformation',
+    'AWS License Manager': 'license-manager',
+    'AWS Mainframe Modernization': 'm2',
+    'AWS Marketplace': 'marketplace-catalog',
+    'AWS Migration Hub': 'mgh',
+    'AWS End User Messaging': 'pinpoint-sms-voice-v2',
+    'AWS Entity Resolution': 'entityresolution'
    
 }
 

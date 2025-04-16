@@ -16,7 +16,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('aws_service_probe1.log'),
+        logging.FileHandler('aws_service_probe.log'),
         logging.StreamHandler()
     ]
 )
@@ -366,6 +366,510 @@ def check_service(client, service_name):
         elif service_name == 'firehose':
             response = client.list_delivery_streams()
             return len(response.get('DeliveryStreamNames', [])) > 0
+        elif service_name == 'amplify':
+            response = client.list_apps()
+            return len(response.get('apps', [])) > 0
+        elif service_name == 'appmesh':
+            response = client.list_meshes()
+            return len(response.get('meshes', [])) > 0
+        elif service_name == 'appconfig':
+            response = client.list_applications()
+            return len(response.get('Items', [])) > 0
+        elif service_name == 'appfabric':
+            response = client.list_app_bundles()
+            return len(response.get('appBundleSummaries', [])) > 0
+        elif service_name == 'appsync':
+            response = client.list_graphql_apis()
+            return len(response.get('graphqlApis', [])) > 0
+        elif service_name == 'artifact':
+            response = client.list_reports()
+            return len(response.get('Reports', [])) > 0
+        elif service_name == 'auditmanager':
+            response = client.list_assessments()
+            return len(response.get('assessmentMetadataList', [])) > 0
+        elif service_name == 'autoscaling':
+            response = client.describe_auto_scaling_groups()
+            return len(response.get('AutoScalingGroups', [])) > 0
+        elif service_name == 'b2bi':
+            response = client.list_partners()
+            return len(response.get('partners', [])) > 0
+        elif service_name == 'billingconductor':
+            response = client.list_billing_groups()
+            return len(response.get('BillingGroups', [])) > 0
+        elif service_name == 'cleanrooms':
+            response = client.list_collaborations()
+            return len(response.get('collaborationList', [])) > 0
+        elif service_name == 'servicediscovery':
+            response = client.list_services()
+            return len(response.get('Services', [])) > 0
+        elif service_name == 'compute-optimizer':
+            response = client.get_enrollment_status()
+            return response.get('status') == 'Active'
+        elif service_name == 'dataexchange':
+            response = client.list_data_sets()
+            return len(response.get('DataSets', [])) > 0
+        # Adding checks for the new services
+        elif service_name == 'panorama':
+            response = client.list_devices()
+            return len(response.get('Devices', [])) > 0
+        elif service_name == 'payment-cryptography':
+            response = client.list_hsm_clients()
+            return len(response.get('HsmClients', [])) > 0
+        elif service_name == 'private-5g':
+            response = client.list_5g_core_networks()
+            return len(response.get('CoreNetworks', [])) > 0
+        elif service_name == 'private-ca':
+            response = client.list_certificate_authorities()
+            return len(response.get('CertificateAuthorities', [])) > 0
+        elif service_name == 'proton':
+            response = client.list_services()
+            return len(response.get('services', [])) > 0
+        elif service_name == 'resiliencehub':
+            response = client.list_applications()
+            return len(response.get('applications', [])) > 0
+        elif service_name == 'resource-explorer':
+            response = client.list_indexes()
+            return len(response.get('Indexes', [])) > 0
+        elif service_name == 'robomaker':
+            response = client.list_robots()
+            return len(response.get('robots', [])) > 0
+        elif service_name == 'security-incident-response':
+            response = client.list_incidents()
+            return len(response.get('incidentIds', [])) > 0
+        elif service_name == 'signer':
+            response = client.list_signing_jobs()
+            return len(response.get('jobs', [])) > 0
+        elif service_name == 'snow-family':
+            response = client.list_jobs()
+            return len(response.get('Jobs', [])) > 0
+        elif service_name == 'supply-chain':
+            response = client.list_supply_chains()
+            return len(response.get('SupplyChains', [])) > 0
+        elif service_name == 'telco-network-builder':
+            response = client.list_networks()
+            return len(response.get('Networks', [])) > 0
+        elif service_name == 'transfer-family':
+            response = client.list_servers()
+            return len(response.get('Servers', [])) > 0
+        elif service_name == 'user-notifications':
+            response = client.list_subscriptions()
+            return len(response.get('Subscriptions', [])) > 0
+        elif service_name == 'well-architected':
+            response = client.list_workloads()
+            return len(response.get('WorkloadSummaries', [])) > 0
+        elif service_name == 'wickr':
+            response = client.list_teams()
+            return len(response.get('Teams', [])) > 0
+        elif service_name == 'repost-private':
+            response = client.list_posts()
+            return len(response.get('Posts', [])) > 0
+        elif service_name == 'activate-for-startups':
+            response = client.list_startups()
+            return len(response.get('Startups', [])) > 0
+        elif service_name == 'appflow':
+            response = client.list_flows()
+            return len(response.get('Flows', [])) > 0
+        elif service_name == 'augmented-ai':
+            response = client.list_human_tasks()
+            return len(response.get('HumanTasks', [])) > 0
+        elif service_name == 'bedrock':
+            response = client.list_foundations()
+            return len(response.get('Foundations', [])) > 0
+        elif service_name == 'braket':
+            response = client.list_quantum_processors()
+            return len(response.get('QuantumProcessors', [])) > 0
+        elif service_name == 'chime':
+            response = client.list_users()
+            return len(response.get('Users', [])) > 0
+        elif service_name == 'chime-sdk':
+            response = client.list_channels()
+            return len(response.get('Channels', [])) > 0
+        elif service_name == 'codecatalyst':
+            response = client.list_projects()
+            return len(response.get('projects', [])) > 0
+        elif service_name == 'codeguru':
+            response = client.list_repositories()
+            return len(response.get('repositories', [])) > 0
+        elif service_name == 'comprehend':
+            response = client.list_entities_detection_jobs()
+            return len(response.get('JobList', [])) > 0
+        elif service_name == 'comprehend-medical':
+            response = client.list_entities_detection_jobs()
+            return len(response.get('JobList', [])) > 0
+        elif service_name == 'connect':
+            response = client.list_instances()
+            return len(response.get('InstanceSummaryList', [])) > 0
+        elif service_name == 'datazone':
+            response = client.list_domains()
+            return len(response.get('Domains', [])) > 0
+        elif service_name == 'devops-guru':
+            response = client.list_anomalies()
+            return len(response.get('Anomalies', [])) > 0
+        elif service_name == 'elastic-vmware-service':
+            response = client.list_virtual_machines()
+            return len(response.get('VirtualMachines', [])) > 0
+        elif service_name == 'finspace':
+            response = client.list_environments()
+            return len(response.get('Environments', [])) > 0
+        elif service_name == 'forecast':
+            response = client.list_forecasts()
+            return len(response.get('Forecasts', [])) > 0
+        elif service_name == 'fraud-detector':
+            response = client.list_detectors()
+            return len(response.get('Detectors', [])) > 0
+        elif service_name == 'gamelift-servers':
+            response = client.list_game_sessions()
+            return len(response.get('GameSessions', [])) > 0
+        elif service_name == 'gamelift-streams':
+            response = client.list_streams()
+            return len(response.get('Streams', [])) > 0
+        elif service_name == 'grafana':
+            response = client.list_workspaces()
+            return len(response.get('Workspaces', [])) > 0
+        elif service_name == 'interactive-video-service':
+            response = client.list_streams()
+            return len(response.get('Streams', [])) > 0
+        elif service_name == 'kendra':
+            response = client.list_indices()
+            return len(response.get('Indices', [])) > 0
+        elif service_name == 'lex':
+            response = client.list_intents()
+            return len(response.get('Intents', [])) > 0
+        elif service_name == 'location':
+            response = client.list_geofence_collections()
+            return len(response.get('GeofenceCollections', [])) > 0
+        elif service_name == 'lookout-for-equipment':
+            response = client.list_alarms()
+            return len(response.get('Alarms', [])) > 0
+        elif service_name == 'lookout-for-metrics':
+            response = client.list_alerts()
+            return len(response.get('Alerts', [])) > 0
+        elif service_name == 'lookout-for-vision':
+            response = client.list_datasets()
+            return len(response.get('Datasets', [])) > 0
+        elif service_name == 'managed-blockchain':
+            response = client.list_networks()
+            return len(response.get('Networks', [])) > 0
+        elif service_name == 'monitron':
+            response = client.list_projects()
+            return len(response.get('Projects', [])) > 0
+        elif service_name == 'one-enterprise':
+            response = client.list_devices()
+            return len(response.get('Devices', [])) > 0
+        elif service_name == 'personalize':
+            response = client.list_datasets()
+            return len(response.get('Datasets', [])) > 0
+        elif service_name == 'pinpoint':
+            response = client.list_campaigns()
+            return len(response.get('Campaigns', [])) > 0
+        elif service_name == 'polly':
+            response = client.describe_voices()
+            return len(response.get('Voices', [])) > 0
+        elif service_name == 'prometheus':
+            response = client.list_workspace_summaries()
+            return len(response.get('WorkspaceSummaries', [])) > 0
+        elif service_name == 'q':
+            response = client.list_sessions()
+            return len(response.get('Sessions', [])) > 0
+        elif service_name == 'q-business':
+            response = client.list_sessions()
+            return len(response.get('Sessions', [])) > 0
+        elif service_name == 'q-developer':
+            response = client.list_sessions()
+            return len(response.get('Sessions', [])) > 0
+        elif service_name == 'q-developer-chat':
+            response = client.list_chat_sessions()
+            return len(response.get('ChatSessions', [])) > 0
+        elif service_name == 'rekognition':
+            response = client.list_collections()
+            return len(response.get('CollectionIds', [])) > 0
+        elif service_name == 'sagemaker':
+            response = client.list_notebook_instances()
+            return len(response.get('NotebookInstances', [])) > 0
+        elif service_name == 'sagemaker-ai':
+            response = client.list_human_tasks()
+            return len(response.get('HumanTasks', [])) > 0
+        elif service_name == 'simple-email-service':
+            response = client.list_smtp_credentials()
+            return len(response.get('SmtpCredentials', [])) > 0
+        elif service_name == 'textract':
+            response = client.list_documents()
+            return len(response.get('Documents', [])) > 0
+        elif service_name == 'transcribe':
+            response = client.list_transcription_jobs()
+            return len(response.get('TranscriptionJobSummaries', [])) > 0
+        elif service_name == 'translate':
+            response = client.list_text_translation_jobs()
+            return len(response.get('TextTranslationJobSummaries', [])) > 0
+        elif service_name == 'verified-permissions':
+            response = client.list_permissions()
+            return len(response.get('Permissions', [])) > 0
+        elif service_name == 'workdocs':
+            response = client.list_users()
+            return len(response.get('Users', [])) > 0
+        elif service_name == 'workmail':
+            response = client.list_organizations()
+            return len(response.get('Organizations', [])) > 0
+        elif service_name == 'analytics':
+            response = client.list_datasets()
+            return len(response.get('Datasets', [])) > 0
+        elif service_name == 'appstream':
+            response = client.list_fleets()
+            return len(response.get('Fleets', [])) > 0
+        elif service_name == 'application-discovery':
+            response = client.list_discovered_resources()
+            return len(response.get('Resources', [])) > 0
+        elif service_name == 'application-integration':
+            response = client.list_integrations()
+            return len(response.get('Integrations', [])) > 0
+        elif service_name == 'application-recovery-controller':
+            response = client.list_recovery_groups()
+            return len(response.get('RecoveryGroups', [])) > 0
+        elif service_name == 'aurora-dsql':
+            response = client.describe_db_clusters()
+            return len(response.get('DBClusters', [])) > 0
+        elif service_name == 'billing-and-cost-management':
+            response = client.describe_cost_and_usage()
+            return len(response.get('ResultsByTime', [])) > 0
+        elif service_name == 'blockchain':
+            response = client.list_networks()
+            return len(response.get('Networks', [])) > 0
+        elif service_name == 'business-applications':
+            response = client.list_applications()
+            return len(response.get('Applications', [])) > 0
+        elif service_name == 'cloud-financial-management':
+            response = client.describe_budgets()
+            return len(response.get('Budgets', [])) > 0
+        # elif service_name == 'cloudhsm':
+        #     response = client.list_hsms()
+            return len(response.get('Hsms', [])) > 0
+        elif service_name == 'cloudsearch':
+            response = client.describe_domains()
+            return len(response.get('SearchServiceDomains', [])) > 0
+        elif service_name == 'cloudshell':
+            response = client.describe_sessions()
+            return len(response.get('Sessions', [])) > 0
+        elif service_name == 'codedeploy':
+            response = client.list_deployments()
+            return len(response.get('Deployments', [])) > 0
+        elif service_name == 'control-tower':
+            response = client.list_enabled_controls()
+            return len(response.get('EnabledControls', [])) > 0
+        elif service_name == 'customer-enablement':
+            response = client.list_enablement_plans()
+            return len(response.get('EnablementPlans', [])) > 0
+        elif service_name == 'detective':
+            response = client.list_graphs()
+            return len(response.get('Graphs', [])) > 0
+        elif service_name == 'developer-tools':
+            response = client.list_code_repositories()
+            return len(response.get('Repositories', [])) > 0
+        elif service_name == 'device-farm':
+            response = client.list_device_pools()
+            return len(response.get('DevicePools', [])) > 0
+        elif service_name == 'directory-service':
+            response = client.describe_directories()
+            return len(response.get('DirectoryDescriptions', [])) > 0
+        elif service_name == 'emr':
+            response = client.list_clusters()
+            return len(response.get('Clusters', [])) > 0
+        elif service_name == 'elastic-transcoder':
+            response = client.list_pipelines()
+            return len(response.get('Pipelines', [])) > 0
+        elif service_name == 'elemental-appliances-software':
+            response = client.list_devices()
+            return len(response.get('Devices', [])) > 0
+        elif service_name == 'end-user-computing':
+            response = client.list_applications()
+            return len(response.get('Applications', [])) > 0
+        elif service_name == 'front-end-web-mobile':
+            response = client.list_web_apps()
+            return len(response.get('WebApps', [])) > 0
+        elif service_name == 'game-development':
+            response = client.list_games()
+            return len(response.get('Games', [])) > 0
+        elif service_name == 'ground-station':
+            response = client.list_dataflow_edges()
+            return len(response.get('DataflowEdges', [])) > 0
+        elif service_name == 'incident-manager':
+            response = client.list_incidents()
+            return len(response.get('Incidents', [])) > 0
+        elif service_name == 'infrastructure-composer':
+            response = client.list_stacks()
+            return len(response.get('Stacks', [])) > 0
+        elif service_name == 'internet-of-things':
+            response = client.list_thing_groups()
+            return len(response.get('ThingGroups', [])) > 0
+        elif service_name == 'iot-analytics':
+            response = client.list_datasets()
+            return len(response.get('Datasets', [])) > 0
+        elif service_name == 'iot-core':
+            response = client.list_things()
+            return len(response.get('Things', [])) > 0
+        elif service_name == 'iot-device-defender':
+            response = client.list_detectors()
+            return len(response.get('Detectors', [])) > 0
+        elif service_name == 'iot-device-management':
+            response = client.list_thing_groups()
+            return len(response.get('ThingGroups', [])) > 0
+        elif service_name == 'iot-events':
+            response = client.list_inputs()
+            return len(response.get('Inputs', [])) > 0
+        elif service_name == 'iot-greengrass':
+            response = client.list_groups()
+            return len(response.get('Groups', [])) > 0
+        elif service_name == 'iot-sitewise':
+            response = client.list_assets()
+            return len(response.get('Assets', [])) > 0
+        elif service_name == 'iot-twinmaker':
+            response = client.list_entities()
+            return len(response.get('Entities', [])) > 0
+        elif service_name == 'launch-wizard':
+            response = client.list_projects()
+            return len(response.get('Projects', [])) > 0
+        elif service_name == 'msk':
+            response = client.list_clusters()
+            return len(response.get('Clusters', [])) > 0
+        elif service_name == 'machine-learning':
+            response = client.list_models()
+            return len(response.get('Models', [])) > 0
+        elif service_name == 'managed-apache-airflow':
+            response = client.list_environments()
+            return len(response.get('Environments', [])) > 0
+        elif service_name == 'managed-apache-flink':
+            response = client.list_environments()
+            return len(response.get('Environments', [])) > 0
+        elif service_name == 'managed-services':
+            response = client.list_services()
+            return len(response.get('Services', [])) > 0
+        elif service_name == 'management-governance':
+            response = client.list_controls()
+            return len(response.get('Controls', [])) > 0
+        elif service_name == 'media-services':
+            response = client.list_assets()
+            return len(response.get('Assets', [])) > 0
+        elif service_name == 'mediaconnect':
+            response = client.list_flows()
+            return len(response.get('Flows', [])) > 0
+        elif service_name == 'mediaconvert':
+            response = client.list_jobs()
+            return len(response.get('Jobs', [])) > 0
+        elif service_name == 'medialive':
+            response = client.list_channels()
+            return len(response.get('Channels', [])) > 0
+        elif service_name == 'mediapackage':
+            response = client.list_channels()
+            return len(response.get('Channels', [])) > 0
+        elif service_name == 'mediastore':
+            response = client.list_containers()
+            return len(response.get('Containers', [])) > 0
+        elif service_name == 'mediatailor':
+            response = client.list_channels()
+            return len(response.get('Channels', [])) > 0
+        elif service_name == 'migration-transfer':
+            response = client.list_transfers()
+            return len(response.get('Transfers', [])) > 0
+        elif service_name == 'oracle-database-aws':
+            response = client.describe_db_instances()
+            return len(response.get('DBInstances', [])) > 0
+        elif service_name == 'parallel-computing-service':
+            response = client.list_computing_clusters()
+            return len(response.get('ComputingClusters', [])) > 0
+        elif service_name == 'quantum-technologies':
+            response = client.list_quantum_tasks()
+            return len(response.get('QuantumTasks', [])) > 0
+        elif service_name == 'red-hat-openshift-service':
+            response = client.list_clusters()
+            return len(response.get('Clusters', [])) > 0
+        elif service_name == 'resource-access-manager':
+            response = client.list_resources()
+            return len(response.get('Resources', [])) > 0
+        elif service_name == 'resource-groups-tag-editor':
+            response = client.list_groups()
+            return len(response.get('Groups', [])) > 0
+        elif service_name == 'robotics':
+            response = client.list_robotics_jobs()
+            return len(response.get('RoboticsJobs', [])) > 0
+        elif service_name == 'swf':
+            response = client.list_workflows()
+            return len(response.get('Workflows', [])) > 0
+        elif service_name == 'satellite':
+            response = client.list_satellites()
+            return len(response.get('Satellites', [])) > 0
+        elif service_name == 'security-lake':
+            response = client.list_data_sources()
+            return len(response.get('DataSources', [])) > 0
+        elif service_name == 'service-quotas':
+            response = client.list_services()
+            return len(response.get('Services', [])) > 0
+        elif service_name == 'support':
+            response = client.describe_cases()
+            return len(response.get('Cases', [])) > 0
+        elif service_name == 'trusted-advisor':
+            response = client.describe_check_results()
+            return len(response.get('CheckResults', [])) > 0
+        elif service_name == 'workspaces':
+            response = client.describe_workspaces()
+            return len(response.get('Workspaces', [])) > 0
+        elif service_name == 'workspaces-secure-browser':
+            response = client.describe_secure_browsers()
+            return len(response.get('SecureBrowsers', [])) > 0
+        elif service_name == 'workspaces-thin-client':
+            response = client.describe_thin_clients()
+            return len(response.get('ThinClients', [])) > 0
+        elif service_name == 'deadline':
+            response = client.list_farms()
+            farms = response.get('farms', [])
+            return len(farms) > 0
+        elif service_name == 'deepcomposer':
+            response = client.list_compositions()
+            return len(response.get('compositions', [])) > 0
+        elif service_name == 'pinpoint-sms-voice-v2':
+            response = client.list_configuration_sets()
+            return len(response.get('ConfigurationSets', [])) > 0
+        elif service_name == 'entityresolution':
+            response = client.list_matching_workflows()
+            return len(response.get('matchingWorkflows', [])) > 0
+        elif service_name == 'fms':
+            response = client.list_policies()
+            return len(response.get('PolicyList', [])) > 0
+        elif service_name == 'health':
+            response = client.describe_events()
+            return len(response.get('events', [])) > 0
+        elif service_name == 'medical-imaging':
+            response = client.list_datastores()
+            return len(response.get('datastoreSummaries', [])) > 0
+        elif service_name == 'healthlake':
+            response = client.list_fhir_datastores()
+            return len(response.get('DatastorePropertiesList', [])) > 0
+        elif service_name == 'omics':
+            response = client.list_runs()
+            return len(response.get('runs', [])) > 0
+        elif service_name == 'iotfleetwise':
+            response = client.list_vehicles()
+            return len(response.get('vehicles', [])) > 0
+        elif service_name == 'lakeformation':
+            response = client.list_lf_tags()
+            return len(response.get('LFTags', [])) > 0
+        elif service_name == 'license-manager':
+            response = client.list_licenses()
+            return len(response.get('Licenses', [])) > 0
+        elif service_name == 'm2':
+            response = client.list_applications()
+            return len(response.get('applications', [])) > 0
+        elif service_name == 'marketplace-catalog':
+            response = client.list_entities(EntityType='AmiProduct')
+            return len(response.get('EntitySummaryList', [])) > 0
+        elif service_name == 'mgh':
+            response = client.list_migration_tasks()
+            return len(response.get('MigrationTaskSummaryList', [])) > 0
+        elif service_name == 'pinpoint-sms-voice-v2':
+            response = client.list_configuration_sets()
+            return len(response.get('ConfigurationSets', [])) > 0
+        elif service_name == 'entityresolution':
+            response = client.list_matching_workflows()
+            return len(response.get('matchingWorkflows', [])) > 0
+  
         return False
     except ClientError as e:
         logger.warning(f"ClientError checking {service_name}: {e}")
@@ -451,7 +955,176 @@ service_map = {
     'Kinesis': 'kinesis',
     'QuickSight': 'quicksight',
     'AWS Glue': 'glue',
-    'Amazon Data Firehose': 'firehose'
+    'Amazon Data Firehose': 'firehose',
+    'AWS Amplify': 'amplify',
+    'AWS App Mesh': 'appmesh',
+    'AWS AppConfig': 'appconfig',
+    'AWS AppFabric': 'appfabric',
+    'AWS AppSync': 'appsync',
+    'AWS Artifact': 'artifact',
+    'AWS Audit Manager': 'auditmanager',
+    'AWS Auto Scaling': 'autoscaling',
+    'AWS B2B Data Interchange': 'b2bi',
+    'AWS Billing Conductor': 'billingconductor',
+    'AWS Clean Rooms': 'cleanrooms',
+    'AWS Cloud Map': 'servicediscovery',
+    'AWS Compute Optimizer': 'compute-optimizer',
+    'AWS Data Exchange': 'dataexchange',
+    'AWS Panorama': 'panorama',
+    'AWS Payment Cryptography': 'payment-cryptography',
+    'AWS Private 5G': 'private-5g',
+    'AWS Private Certificate Authority': 'private-ca',
+    'AWS Proton': 'proton',
+    'AWS Resilience Hub': 'resiliencehub',
+    'AWS Resource Explorer': 'resource-explorer',
+    'AWS RoboMaker': 'robomaker',
+    'AWS Security Incident Response': 'security-incident-response',
+    'AWS Signer': 'signer',
+    'AWS Snow Family': 'snow-family',
+    'AWS Supply Chain': 'supply-chain',
+    'AWS Telco Network Builder': 'telco-network-builder',
+    'AWS Transfer Family': 'transfer-family',
+    'AWS User Notifications': 'user-notifications',
+    'AWS Well-Architected Tool': 'well-architected',
+    'AWS Wickr': 'wickr',
+    'AWS re:Post Private': 'repost-private',
+    'Activate for Startups': 'activate-for-startups',
+    'Amazon AppFlow': 'appflow',
+    'Amazon Augmented AI': 'augmented-ai',
+    'Amazon Bedrock': 'bedrock',
+    'Amazon Braket': 'braket',
+    'Amazon Chime': 'chime',
+    'Amazon Chime SDK': 'chime-sdk',
+    'Amazon CodeCatalyst': 'codecatalyst',
+    'Amazon CodeGuru': 'codeguru',
+    'Amazon Comprehend': 'comprehend',
+    'Amazon Comprehend Medical': 'comprehend-medical',
+    'Amazon Connect': 'connect',
+    'Amazon DataZone': 'datazone',
+    'Amazon DevOps Guru': 'devops-guru',
+    'Amazon Elastic VMware Service (Preview)': 'elastic-vmware-service',
+    'Amazon FinSpace': 'finspace',
+    'Amazon Forecast': 'forecast',
+    'Amazon Fraud Detector': 'fraud-detector',
+    'Amazon GameLift Servers': 'gamelift-servers',
+    'Amazon GameLift Streams': 'gamelift-streams',
+    'Amazon Grafana': 'grafana',
+    'Amazon Interactive Video Service': 'interactive-video-service',
+    'Amazon Kendra': 'kendra',
+    'Amazon Lex': 'lex',
+    'Amazon Location Service': 'location',
+    'Amazon Lookout for Equipment': 'lookout-for-equipment',
+    'Amazon Lookout for Metrics': 'lookout-for-metrics',
+    'Amazon Lookout for Vision': 'lookout-for-vision',
+    'Amazon Managed Blockchain': 'managed-blockchain',
+    'Amazon Monitron': 'monitron',
+    'Amazon One Enterprise': 'one-enterprise',
+    'Amazon Personalize': 'personalize',
+    'Amazon Pinpoint': 'pinpoint',
+    'Amazon Polly': 'polly',
+    'Amazon Prometheus': 'prometheus',
+    'Amazon Q': 'q',
+    'Amazon Q Business': 'q-business',
+    'Amazon Q Developer (Including Amazon CodeWhisperer)': 'q-developer',
+    'Amazon Q Developer in chat applications (previously AWS Chatbot)': 'q-developer-chat',
+    'Amazon Rekognition': 'rekognition',
+    'Amazon SageMaker': 'sagemaker',
+    'Amazon SageMaker AI': 'sagemaker-ai',
+    'Amazon Simple Email Service': 'simple-email-service',
+    'Amazon Textract': 'textract',
+    'Amazon Transcribe': 'transcribe',
+    'Amazon Translate': 'translate',
+    'Amazon Verified Permissions': 'verified-permissions',
+    'Amazon WorkDocs': 'workdocs',
+    'Amazon WorkMail': 'workmail',
+    'Analytics': 'analytics',
+    'AppStream 2.0': 'appstream',
+    'Application Discovery Service': 'application-discovery',
+    'Application Integration': 'application-integration',
+    'Application Recovery Controller': 'application-recovery-controller',
+    'Aurora DSQL': 'aurora-dsql',
+    'Billing and Cost Management': 'billing-and-cost-management',
+    'Blockchain': 'blockchain',
+    'Business Applications': 'business-applications',
+    'Cloud Financial Management': 'cloud-financial-management',
+    # 'CloudHSM': 'cloudhsm',
+    'CloudSearch': 'cloudsearch',
+    'CloudShell': 'cloudshell',
+    'CodeDeploy': 'codedeploy',
+    'Control Tower': 'control-tower',
+    'Customer Enablement': 'customer-enablement',
+    'Detective': 'detective',
+    'Developer Tools': 'developer-tools',
+    'Device Farm': 'device-farm',
+    'Directory Service': 'directory-service',
+    'EMR': 'emr',
+    'Elastic Transcoder': 'elastic-transcoder',
+    'Elemental Appliances & Software': 'elemental-appliances-software',
+    'End User Computing': 'end-user-computing',
+    'Front-end Web & Mobile': 'front-end-web-mobile',
+    'Game Development': 'game-development',
+    'Ground Station': 'ground-station',
+    'Incident Manager': 'incident-manager',
+    'Infrastructure Composer': 'infrastructure-composer',
+    'Internet of Things': 'internet-of-things',
+    'IoT Analytics': 'iot-analytics',
+    'IoT Core': 'iot-core',
+    'IoT Device Defender': 'iot-device-defender',
+    'IoT Device Management': 'iot-device-management',
+    'IoT Events': 'iot-events',
+    'IoT Greengrass': 'iot-greengrass',
+    'IoT SiteWise': 'iot-sitewise',
+    'IoT TwinMaker': 'iot-twinmaker',
+    'Launch Wizard': 'launch-wizard',
+    'MSK': 'msk',
+    'Machine Learning': 'machine-learning',
+    'Managed Apache Airflow': 'managed-apache-airflow',
+    'Managed Apache Flink': 'managed-apache-flink',
+    'Managed Services': 'managed-services',
+    'Management & Governance': 'management-governance',
+    'Media Services': 'media-services',
+    'MediaConnect': 'mediaconnect',
+    'MediaConvert': 'mediaconvert',
+    'MediaLive': 'medialive',
+    'MediaPackage': 'mediapackage',
+    'MediaStore': 'mediastore',
+    'MediaTailor': 'mediatailor',
+    'Migration & Transfer': 'migration-transfer',
+    'Networking & Content Delivery': 'networking-content-delivery',
+    'Oracle Database@AWS': 'oracle-database-aws',
+    'Parallel Computing Service': 'parallel-computing-service',
+    'Quantum Technologies': 'quantum-technologies',
+    'Red Hat OpenShift Service on AWS': 'red-hat-openshift-service',
+    'Resource Access Manager': 'resource-access-manager',
+    'Resource Groups & Tag Editor': 'resource-groups-tag-editor',
+    'Robotics': 'robotics',
+    'SWF': 'swf',
+    'Satellite': 'satellite',
+    'Security Lake': 'security-lake',
+    'Service Quotas': 'service-quotas',
+    'Support': 'support',
+    'Trusted Advisor': 'trusted-advisor',
+    'WorkSpaces': 'workspaces',
+    'WorkSpaces Secure Browser': 'workspaces-secure-browser',
+    'WorkSpaces Thin Client': 'workspaces-thin-client',
+    'AWS Deadline Cloud': 'deadline',
+    'AWS DeepComposer': 'deepcomposer',
+    'AWS End User Messaging': 'pinpoint-sms-voice-v2',
+    'AWS Entity Resolution': 'entityresolution',
+    'AWS Firewall Manager': 'fms',
+    'AWS Health Dashboard': 'health',
+    'AWS HealthImaging': 'medical-imaging',
+    'AWS HealthLake': 'healthlake',
+    'AWS HealthOmics': 'omics',
+    'AWS IoT FleetWise': 'iotfleetwise',
+    'AWS Lake Formation': 'lakeformation',
+    'AWS License Manager': 'license-manager',
+    'AWS Mainframe Modernization': 'm2',
+    'AWS Marketplace': 'marketplace-catalog',
+    'AWS Migration Hub': 'mgh',
+    'AWS End User Messaging': 'pinpoint-sms-voice-v2',
+    'AWS Entity Resolution': 'entityresolution'
+   
 }
 
 # Process a single service for an account
